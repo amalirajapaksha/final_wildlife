@@ -1,0 +1,25 @@
+\beamer@sectionintoc {1}{An introduction for the Dep. of Wildlife Conservation}{2}{0}{1}
+\beamer@sectionintoc {2}{Understanding Our GPS Data Availability}{5}{0}{2}
+\beamer@sectionintoc {3}{Where Do Elephants Spend Their Time?}{6}{0}{3}
+\beamer@sectionintoc {4}{Latitude vs.\ Time: The Seasonal North--South Pattern}{7}{0}{4}
+\beamer@sectionintoc {5}{Latitude vs.\ Time: Boundary Crossings}{8}{0}{5}
+\beamer@sectionintoc {6}{When Do Elephants Approach Farmland?}{9}{0}{6}
+\beamer@sectionintoc {7}{Both Coordinates: Spotting Conflict Risk}{10}{0}{7}
+\beamer@sectionintoc {8}{Landscape-Level Movement}{11}{0}{8}
+\beamer@sectionintoc {9}{Movement Pattern Observation}{12}{0}{9}
+\beamer@sectionintoc {10}{Intro to Home Range \& Speed and Live Elephant Path}{13}{0}{10}
+\beamer@sectionintoc {11}{Insights from the Home Range \& Speed Page}{14}{0}{11}
+\beamer@sectionintoc {12}{Insights from the Live Elephant Path Page}{20}{0}{12}
+\beamer@sectionintoc {13}{Combined Insights}{26}{0}{13}
+\beamer@sectionintoc {14}{Why Individual-Level Analysis Matters Here }{28}{0}{14}
+\beamer@sectionintoc {15}{Individual Movement Signatures}{29}{0}{15}
+\beamer@sectionintoc {16}{Spatial Clustering \& Social Dynamics}{32}{0}{16}
+\beamer@sectionintoc {17}{Climate \& Environmental Responses}{33}{0}{17}
+\beamer@sectionintoc {18}{GPS Movement Patterns by Time of Day \& Climate}{35}{0}{18}
+\beamer@sectionintoc {19}{Vegetation \& GPS Tracking}{40}{0}{19}
+\beamer@sectionintoc {20}{Overall Tracking Data \& Cluster-Level Trends}{47}{0}{20}
+\beamer@sectionintoc {21}{Overview}{49}{0}{21}
+\beamer@sectionintoc {22}{Movement rate}{50}{0}{22}
+\beamer@sectionintoc {23}{Immobility monitor}{52}{0}{23}
+\beamer@sectionintoc {24}{Revisit hotspots}{54}{0}{24}
+\beamer@sectionintoc {25}{Proximity anomalies}{55}{0}{25}

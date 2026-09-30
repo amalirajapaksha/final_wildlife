@@ -1,0 +1,1212 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usefonttheme{structurebold}
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+\usefonttheme{structureitalicserif}
+
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[table]{xcolor} 
+\usepackage{booktabs}
+\usepackage{float} 
+\usepackage{colortbl}   
+\usepackage{tcolorbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+
+% ---- palette -----------------------------------------------
+\definecolor{kgreen}{RGB}{20,94,66}      % deep green (titles, accents)
+\definecolor{kgreenlt}{RGB}{233,243,238}  % pale green (message strip)
+\definecolor{ktext}{RGB}{38,44,41}
+
+
+
+\definecolor{darkgreen}{RGB}{0, 100, 70}
+\definecolor{softgreen}{RGB}{210, 235, 220}
+\definecolor{ashgray}{RGB}{242, 242, 242}
+\definecolor{softgray}{RGB}{125, 145, 135}
+
+\definecolor{emerald}{RGB}{0, 140, 90}
+\definecolor{lightemerald}{RGB}{225, 245, 235}
+
+\definecolor{emerald1}{RGB}{0, 85, 55}
+\definecolor{lightemerald1}{RGB}{215, 240, 225}
+
+
+
+
+% General colors
+\setbeamercolor{palette primary}{fg=black, bg=softgray}
+\setbeamercolor{palette secondary}{fg=darkgreen}
+\setbeamercolor{palette tertiary}{bg=darkgreen, fg=white}
+\setbeamercolor{title}{fg=white,bg=darkgreen}
+\setbeamercolor{normal text}{bg=, fg=black}
+\setbeamercolor{structure}{fg=darkgreen}
+
+% Frame title
+\setbeamercolor{frametitle}{bg=softgreen, fg=darkgreen}
+
+% Blocks
+\setbeamercolor{block title}{bg=darkgreen!25, fg=black}
+\setbeamercolor{block body}{bg=white, fg=black}
+
+% Itemize bullets
+\setbeamerfont{enumerate item}{series=\bfseries} % bold numbers
+\setbeamercolor{enumerate item}{fg=darkgreen}   % change number color
+
+\setbeamerfont{itemize item}{series=\bfseries} % bold bullet
+\setbeamercolor{itemize item}{fg=darkgreen}   % bullet color
+
+
+% Section in TOC
+\setbeamercolor{section in toc}{fg=darkgreen}
+
+% Footer (optional)
+\setbeamercolor{author in head/foot}{bg=darkgreen, fg=white}
+
+% Frame title: bold & upright
+\setbeamerfont{frametitle}{series=\bfseries, shape=\upshape}
+
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{caption name}{size=\tiny}
+\setbeamerfont{caption}{size=\tiny}
+
+
+
+
+\definecolor{hicolor}{HTML}{C0392B}
+\newcommand{\hi}[1]{\textbf{\textcolor{hicolor}{#1}}}
+
+% ---- emphasis + key message --------------------------------
+\newcommand{\key}[1]{\textcolor{kgreen}{\bfseries #1}}
+\newcommand{\keymsg}[1]{%
+	\vskip0.4em
+	\begin{beamercolorbox}[wd=\textwidth,sep=0.7em,rounded=false]{}%
+		\colorbox{kgreenlt}{\parbox{\dimexpr\textwidth-1.4em\relax}{%
+				{\bfseries\color{kgreen}Key Message.\ }#1}}%
+\end{beamercolorbox}}
+
+
+\setlist[itemize]{label=\textbullet}
+\setlist[enumerate]{label=\arabic*., leftmargin=*}
+
+
+\title[Elephant Movement in Kaudulla]{\centering \LARGE Elephant Movement in Kaudulla: What the Data Tells Us}
+
+
+\institute[SCS-USJ]{
+	{Statistical Consulting Service \par}
+	{Department of Statistics \par}
+	{Faculty of Applied Sciences \par}
+	{University of Sri Jayewardenepura \par}
+	{Nugegoda \par}
+	{Sri Lanka}
+}
+\date[\today]{\today}
+
+
+
+
+\begin{document}
+	
+	
+
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+
+	
+	
+	\section{An introduction for the Dep. of Wildlife Conservation}
+	\begin{frame}{What This Project Is}
+		\begin{itemize}\setlength\itemsep{0.55em}
+			\item The department \key{already collars and tracks} elephants in Kaudulla. This project
+			turns that \emph{existing} GPS data into patterns the raw records don't show.
+			\item It answers \key{Three practical questions}:
+			\begin{itemize}\setlength\itemsep{0.35em}
+				\item \key{Where} do the elephants spend their time?
+				\item \key{How does the environment shape movement} - temperature, rainfall, vegetation?
+				\item Can we \key{spot early} when something is wrong - injury, illness or death?
+				
+			\end{itemize}
+		\end{itemize}
+		
+	\end{frame}
+	
+	% ============================================================
+	% SLIDE 2 — The data
+	% ============================================================
+	\begin{frame}{The Data We Worked With}
+		\begin{itemize}\setlength\itemsep{0.5em}
+			\item \key{14 collared elephants} in Kaudulla National Park - Gothami, Female\_1, Dona,
+			Mina, Kasun and others, including one \key{re-collared female} with the longest record.
+			\item A GPS fix roughly \key{every hour} over \key{Dec 2023 -- Jun 2026}
+			about \key{$\sim$87{,}000 fixes} in total.
+			\item Positions paired with \key{NASA climate data} and \key{satellite vegetation data}
+			(NDVI, 2018--2026), so movement reads against weather and habitat.
+			\item \key{Cleaned first}: bad positions removed, timestamps on a clean hourly grid, and
+			\key{gaps left as gaps}
+		\end{itemize}
+	\end{frame}
+	
+	% ============================================================
+	% SLIDE 3 — Missing data
+	% ============================================================
+	\begin{frame}{An Honest Word on Missing Data}
+		\begin{itemize}\setlength\itemsep{0.5em}
+			\item Coverage is \key{very uneven} across the data. Most collars are missing
+			\key{55--98\%} of their expected hourly fixes.
+			\item Only \key{three elephants} - Gothami, Female\_1, and the re-collared female
+			have dense, reliable coverage, carrying most of the trustworthy signal.
+			\item \key{Blank periods mean the collar lost signal} - \emph{not} that the elephant
+			disappeared.
+			\item So a ``no problem detected'' for a partially tracked elephant usually means
+			\key{not enough data}, not \emph{confirmed fine}.
+		\end{itemize}
+		
+	\end{frame}
+	
+	
+	
+	
+	
+	\section{Understanding Our GPS Data Availability}
+	\begin{frame}{Understanding Our GPS Data Availability}
+		\small
+		\textbf{Key Insights}
+		\begin{itemize}
+			\item Gothami, Female\_1, and the recollared female have strong GPS coverage, giving more reliable movement patterns.
+			\item Several elephants have missing or limited records, reducing our understanding of their full movements.
+			\item Blank periods indicate missing GPS data, not missing elephants.
+			\item Some elephants had very low GPS data availability, with tracking data available for only a few days.
+			\\ Examples: Damien, Pazhani, Illuk, and Kasun.
+			\item Results should be interpreted carefully when data availability is limited.
+		\end{itemize}
+		
+		\vspace{0.5cm}
+		\begin{block}{Key Message}
+			\textit{``Incomplete data tells only part of the story. More complete data helps us see the full picture, leading to more reliable analysis and better conservation decisions.''}
+		\end{block}
+	\end{frame}
+	
+	
+	
+	
+	
+	\section{Where Do Elephants Spend Their Time?}
+	\begin{frame}{Where Do Elephants Spend Their Time?}
+		\textbf{Understanding the general movement pattern}
+		\begin{itemize}
+			\item Most elephants stay in the western part of Kaudulla, close to the water tank.
+			\item Only a few elephants regularly move towards the eastern farmland.
+			\item Dona shows the strongest movement towards the farmland.
+			\item Gothami and the recollared female also show occasional eastern movement.
+		\end{itemize}
+		
+		\vspace{0.5cm}
+		\begin{block}{Key Message}
+			\textit{``Most elephants stay near the water, but a few elephants regularly explore areas closer to human settlements.''}
+		\end{block}
+	\end{frame}
+	
+	
+	
+	
+	\section{Latitude vs.\ Time: The Seasonal North--South Pattern}
+	\begin{frame}{Latitude vs.\ Time: The Seasonal North--South Pattern}
+		\textbf{Key Insights}
+		\footnotesize
+		\begin{itemize}
+			\item Each line follows one elephant's north--south position over time; rising = moving north, falling = moving south.
+			\item Between \textbf{May and October}, most elephants trend northward toward Kaudulla Tank, because the neighbouring Minneriya tank dries up and pushes them toward Kaudulla's more reliable water source -- this is the ``Gathering.''
+			\item After the rains return, elephants disperse south again into their wider range.
+			\item Gaps in a line mean the collar lost signal, not that the elephant disappeared.
+		\end{itemize}
+		
+		\vspace{0.4cm}
+		\begin{block}{Key Message}
+			\textit{``Elephants move north toward water in the dry season -- expected, healthy behaviour tied to the natural rhythm of the park.''}
+		\end{block}
+	\end{frame}
+	
+	
+	
+
+	\section{Latitude vs.\ Time: Boundary Crossings}
+	\begin{frame}{Latitude vs.\ Time: Boundary Crossings}
+		\textbf{Key Insights}
+		\footnotesize
+		\begin{itemize}
+			\item If a line approaches or crosses the northern/southern park boundary, that elephant may be leaving protected land -- a cue to check for possible conflict.
+			\item \textbf{Six elephants crossed the northern boundary} -- Recollared Female, Dona, Gothami, Female\_1, Kasun, and Rahu -- while \textbf{none crossed the southern boundary}.
+			\item This one-sided pattern suggests movement pressure is concentrated on the \textbf{north side} of the park, likely linked to the Kaudulla--Minneriya corridor and the dry-season pull toward water.
+			\item Monitoring and mitigation resources should be prioritised on the northern boundary rather than spread evenly across all boundaries.
+		\end{itemize}
+		
+		\vspace{0.4cm}
+		\begin{block}{Key Message}
+			\textit{``It's the northern boundary, not the southern one, where crossings actually happen -- monitoring effort should follow that pattern.''}
+		\end{block}
+	\end{frame}
+	
+	
+	
+	
+	\section{When Do Elephants Approach Farmland?}
+	\begin{frame}{When Do Elephants Approach Farmland?}
+		\normalsize
+		\begin{itemize}
+			\item Elephant movements near the farmland boundary occur repeatedly, not just once.
+			\item Most of these movements happen between July and December.
+			\item A small number of elephants, especially Dona, approach the farmland more frequently.
+			\item This period represents the highest risk for human--elephant encounters.
+		\end{itemize}
+		
+		\vspace{0.5cm}
+		\begin{block}{Key Message}
+			\textit{``Monitoring a few elephants during high-risk months can help reduce human--elephant conflict.''}
+		\end{block}
+	\end{frame}
+	
+	
+	
+	\section{Both Coordinates: Spotting Conflict Risk}
+	\begin{frame}{Both Coordinates: Spotting Conflict Risk}
+		\textbf{Key Insights}
+		\small
+		\begin{itemize}
+			
+			\item The critical pattern: latitude \textbf{falling} while longitude \textbf{rising} at the same time means an elephant is moving \textbf{south-east} -- toward the farmland on the park's eastern edge.
+			\item \textbf{Gothami and Kasun} -- both also crossed the northern boundary at other points, indicating wide-ranging movement worth close monitoring.
+			
+			\item A reference map and coordinate table translate the numbers into real landmarks.
+			\item Best used to flag \textbf{individual} elephants worth closer monitoring, rather than park-wide trends.
+		\end{itemize}
+		
+		\vspace{0.4cm}
+		\begin{block}{Key Message}
+			\textit{``South and east together is the single most important pattern to watch for potential human--elephant conflict -- Gothami and Kasun show it clearly in the data and should be prioritised for monitoring.''}
+		\end{block}
+	\end{frame}
+	
+	
+	
+	
+	
+	\section{Landscape-Level Movement}
+	\begin{frame}{Landscape-Level Movement}
+		
+		\large
+		\begin{itemize}
+			\item All tracked elephants use a common landscape centered around the \textbf{Kaudulla Reservoir}.
+			\vspace{0.2cm}
+			\item Most elephants frequently move within the areas surrounding the reservoir.
+			\vspace{0.2cm}
+			\item Several elephants also travel towards the \textbf{Ralapanawa Nature Reserve}.
+			\vspace{0.2cm}
+			\item The movement paths indicate connectivity between the Kaudulla Reservoir and the Ralapanawa Nature Reserve.
+			\vspace{0.2cm}
+			\item Protecting these connected habitats is important to maintain elephant movement and reduce habitat fragmentation.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	\section{Movement Pattern Observation}
+	\begin{frame}{Movement Pattern Observation}
+		\Large
+		
+		\begin{itemize}
+		\item An interesting observation is that Gothami and female\_1 show very similar movement patterns during September, October, and November 2024.
+		
+		\vspace{0.7cm}
+		
+		\item As both elephants had high GPS data availability during this period, this pattern is clearly observed.
+		
+		\vspace{0.7cm}
+		
+		\item They repeatedly used the same area throughout these three months, suggesting that this is an important habitat for both elephants.
+	    \end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+	\section{Intro to Home Range \& Speed and Live Elephant Path}
+	\begin{frame}{Intro to Home Range \& Speed and Live Elephant Path}
+	The \textbf{Home Range \& Speed} and \textbf{Live Elephant Path} pages provide complementary insights into elephant movement using GPS collar observations. While the Home Range \& Speed page summarizes an elephant's spatial utilization and movement characteristics, the Live Elephant Path page reconstructs its chronological movement trajectory. Together, these visualizations enable users to understand where elephants move, how fast they travel, and how their movement patterns change over time.
+	\end{frame}
+	
+	
+	
+	
+	\section{Insights from the Home Range \& Speed Page}
+	\begin{frame}{Insights from the Home Range \& Speed Page}
+		\Large
+		
+		The Home Range \& Speed page combines spatial analysis with movement statistics to help users understand the ranging behaviour of individual elephants.
+	\end{frame}	
+	
+	
+	
+	
+	
+	
+		\begin{frame}{Home Range Estimation}
+		
+		The dashboard estimates an elephant's home range using a concave hull generated from GPS collar locations. The resulting polygon represents the area occupied during the selected observation period.
+		
+		From this visualization, users can:
+		
+		\begin{itemize}
+			\item Identify the overall area occupied by an elephant.
+			\item Compare home range sizes among multiple elephants.
+			\item Determine whether an elephant remains within a localized region or travels across a much larger landscape.
+			\item Observe how the occupied area changes after selecting different time periods.
+		\end{itemize}
+		
+		Large home ranges generally indicate extensive movement across multiple habitats, whereas smaller home ranges suggest repeated use of localized resources such as feeding areas or water sources.
+    \end{frame}	
+	
+	
+	
+	
+	
+	
+		\begin{frame}{Movement Speed Analysis}
+		
+		The dashboard calculates movement speed between consecutive GPS observations.
+		
+		The movement speed information enables users to identify:
+		
+		\begin{itemize}
+			\item periods of slow movement that may correspond to feeding or resting,
+			\item periods of continuous movement while travelling,
+			\item differences in activity levels between elephants,
+			\item seasonal variations in movement behaviour.
+		\end{itemize}
+		
+		By comparing movement speed across different periods, researchers can investigate behavioural responses to changing environmental conditions.
+	\end{frame}	
+	
+	
+	
+	
+	
+	
+		\begin{frame}{Movement Direction}
+		
+		The dashboard also computes the movement bearing between consecutive GPS locations.
+		
+		This allows users to:
+		
+		\begin{itemize}
+			\item identify dominant movement directions,
+			\item recognize repeated travel patterns,
+			\item observe directional changes throughout the monitoring period,
+			\item understand overall movement dynamics within the study area.
+		\end{itemize}
+		
+		Repeated movement in similar directions may indicate preferred travel corridors between important habitat patches.
+	\end{frame}	
+	
+	
+	
+	
+	
+	
+		\begin{frame}{Comparative Behaviour Between Elephants}
+		
+		Since multiple elephants can be analysed using identical methods, users can compare:
+		
+		\begin{itemize}
+			\item home range size,
+			\item average movement speed,
+			\item movement direction,
+			\item overall mobility.
+		\end{itemize}
+		
+		Such comparisons help distinguish elephants with relatively stable movement patterns from individuals that exhibit wider ranging behaviour.
+	\end{frame}	
+	
+	
+	
+	
+	
+	
+		\begin{frame}{Conservation Significance}
+		
+		The Home Range \& Speed page provides valuable information for wildlife management.
+		
+		Researchers can identify:
+		
+		\begin{itemize}
+			\item important habitat areas,
+			\item elephants with unusually large movement ranges,
+			\item changes in movement behaviour across seasons,
+			\item regions requiring continued habitat protection.
+		\end{itemize}
+		
+		These observations support habitat management and conservation planning.
+	\end{frame}	
+	
+	
+	
+	
+	
+	
+	\section{Insights from the Live Elephant Path Page}
+		\begin{frame}{Insights from the Live Elephant Path Page}
+		
+		\Large
+		
+		Unlike the Home Range page, which summarizes occupied space, the Live Elephant Path page reconstructs the elephant's actual travel path in chronological order.
+	\end{frame}	
+	
+	
+	
+	
+	
+	
+	
+		\begin{frame}{Chronological Movement Reconstruction}
+		
+		GPS locations are connected according to their timestamps to recreate the elephant's complete movement history.
+		
+		Users can observe:
+		
+		\begin{itemize}
+			\item the starting location,
+			\item the exact travel route,
+			\item changes in direction,
+			\item the latest recorded location,
+			\item the complete movement trajectory.
+		\end{itemize}
+		
+		This representation provides a clearer understanding of elephant movement than isolated GPS locations.
+	\end{frame}	
+	
+	
+	
+	
+	
+	
+		\begin{frame}{Movement Playback}
+		
+		The interactive time slider allows users to replay elephant movements over time.
+		
+		This enables users to:
+		
+		\begin{itemize}
+			\item visualize movement progression,
+			\item identify periods of high activity,
+			\item detect prolonged stays at specific locations,
+			\item examine movement behaviour throughout the observation period.
+		\end{itemize}
+		
+		The playback functionality makes it easier to interpret temporal movement patterns.
+	\end{frame}	
+	
+	
+	
+	
+	
+	
+		\begin{frame}{Travel Route Identification}
+		
+		The movement trajectory helps users identify:
+		
+		\begin{itemize}
+			\item frequently travelled routes,
+			\item repeated movement corridors,
+			\item areas visited multiple times,
+			\item possible migration pathways.
+		\end{itemize}
+		
+		If several elephants repeatedly follow similar routes, these paths may represent important ecological corridors that deserve conservation attention.
+		
+	\end{frame}	
+	
+	
+	
+	
+	
+	\begin{frame}{Interactive Spatial Exploration}
+		
+		The interactive map allows users to switch between different basemap styles while exploring elephant movement.
+		
+		Each GPS point provides detailed information including:
+		
+		\begin{itemize}
+			\item observation date,
+			\item observation time,
+			\item latitude,
+			\item longitude,
+			\item chronological order of movement.
+		\end{itemize}
+		
+		These interactive features enable users to investigate movement data more effectively than static maps.
+	\end{frame}
+	
+	
+	
+	
+	
+	\begin{frame}{Monitoring Current Movement}
+		
+		Because the dashboard displays the latest available GPS observations, researchers can monitor the most recent movement path of a selected elephant.
+		
+		This allows users to:
+		
+		\begin{itemize}
+			\item monitor recent movement trends,
+			\item identify newly visited locations,
+			\item observe deviations from historical movement patterns,
+			\item support field monitoring and conservation activities.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	\section{Combined Insights}
+		\begin{frame}{Combined Insights}
+		
+		Although both dashboard pages use the same GPS collar dataset, they provide different perspectives on elephant movement.
+		
+		\vspace{0.5cm}
+		
+		The \textbf{Home Range \& Speed} page answers questions such as:
+		
+		\begin{itemize}
+			\item How large is the elephant's home range?
+			\item How fast does the elephant typically move?
+			\item Which elephants are the most mobile?
+			\item How does movement behaviour change across different periods?
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+		\begin{frame}
+		The \textbf{Live Elephant Path} page answers complementary questions, including:
+		
+		\begin{itemize}
+			\item Where did the elephant travel?
+			\item Which routes are used repeatedly?
+			\item Which locations are frequently visited?
+			\item How does movement change over time?
+		\end{itemize}
+		
+		Together, these pages provide a comprehensive understanding of elephant movement behaviour. Users can analyse spatial utilization, movement speed, travel direction, and chronological movement simultaneously. These insights support ecological research, habitat management, wildlife corridor identification, and evidence-based conservation planning for elephants within and around Kaudulla National Park.
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Why Individual-Level Analysis Matters Here }
+	\begin{frame}{Why Individual-Level Analysis Matters Here}
+		\Large
+		Aggregating all elephants into a single cluster hides distinct, animal-specific behavior.
+		
+		This dataset actually shows four separate movement signatures around the railway track and reservoir --- patterns that would cancel out or blur together if treated as one population.
+	\end{frame}
+	
+	
+	
+	\section{Individual Movement Signatures}
+	\begin{frame}{Individual Movement Signatures}
+		\begin{block}{1. Recollared\_Female --- Frequent, Habitual Railway User}
+			Unlike the others, Recollared\_Female visits the railway track area most of the time --- this isn't a one-off or occasional event but appears to be a regular, repeated part of her range use.
+			
+			This suggests the railway corridor isn't a barrier for her but a routine feature of her movement --- possibly a habitual crossing point or a route she uses consistently to move between feeding/water areas on either side.
+		\end{block}
+		
+		
+		\begin{block}{2. Dona --- Consistent, Restricted Range (No Railway Use)}
+			Dona stays almost entirely in the upper (northern) part of the park throughout the tracked period, with no evidence of visiting the railway track or reservoir corridor at all.
+			
+			This points to a stable, well-defined home range that simply doesn't overlap with the railway/water corridor the other elephants use.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{block}{3. Female\_1 --- Brief, Time-Bound Railway Visit}
+			Female\_1's data shows only a single, tightly bounded visit to the railway track: 2024.11.29 -- 2024.12.04 (\textasciitilde 6 days).
+			
+			Outside this window, there's no indication she used the corridor.
+			
+			This looks like a discrete, one-time event rather than routine behavior --- possibly tied to a specific short-term trigger (resource pulse, herd movement, disturbance elsewhere).
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{block}{4. Mina --- Recurring Railway Use + Data Gaps as a Signal}
+			Mina shows the most complex trajectory, with repeated railway visits interspersed with data loss:
+			\begin{itemize}[label=\textbullet,nosep]
+				\item 2024.07.29 -- 07.31: First recorded railway visit
+				\item \textit{(data gap)}
+				\item 2024.10.19: Tracking resumes
+				\item 2024.11.01, 2024.11.03: Railway visited again
+				\item \textit{(data gap)}
+				\item 2025.06.25 -- 06.28: Tracked at Kaudulla reservoir
+				\item \textit{(data lost again as she appears to cross toward the opposite side of the reservoir)}
+			\end{itemize}
+			Her pattern suggests repeated use of the railway as a crossing route between the reservoir and other parts of her range --- and the recurring gaps right at crossing points are themselves informative, possibly indicating collar signal loss specific to that corridor rather than random malfunction.
+		\end{block}
+	\end{frame}
+	
+	
+	
+	\section{Spatial Clustering \& Social Dynamics}
+	\begin{frame}{Spatial Clustering \& Social Dynamics}
+		\begin{itemize}[label=\textbullet]
+			\item \textbf{The Kaudulla Reservoir (Central Cluster):} A large, high-density central cluster is shared by eight tracked elephants: \textbf{Gothami, Mina, Talatha, Kasun, Illuk, Wilmini, Pazhani, and Damien}. Their overlapping ranges heavily center around and near the Kaudulla Reservoir, confirming it as a critical dry-season water resource.
+			\item \textbf{The Northeastern Pod:} A distinct, isolated northeastern cluster is shared exclusively by \textbf{Dona and Rahu}. This separation strongly suggests they belong to a distinct family/social unit or maintain a strict, preferred home range away from the main herd.
+			\item \textbf{The Recollared Female's Range Stability:} The \textbf{Recollared Female} exhibits the most balanced and sustained home range over the longest continuous tracking period, primarily utilizing the upper boundary of the Kaudulla Reservoir.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	\section{Climate \& Environmental Responses}
+	\begin{frame}{Climate \& Environmental Responses}
+		\begin{block}{1. The Recollared Female}
+			\begin{itemize}[label=\textbullet]
+				\item \textbf{Temperature Inversion Response:} She demonstrates a clear seasonal movement pattern: as both daytime and nighttime temperatures decrease, she systematically moves \textit{away} from the reservoir, likely seeking denser forest cover for thermal regulation.
+				\item \textbf{Rainfall Sensitivity:} She exhibits a strong aversion to moderate rainfall (\textasciitilde 50 mm), moving away from the reservoir during these periods. However, during core dry months, her movement shows no distinct pattern, indicating that water scarcity overrides other environmental cues.
+				\item \textbf{Temporal Fidelity (Dec 2024 vs.\ Dec 2025):} Her spatial core centers around two nearly identical geographic points away from the reservoir during December 2024 and December 2025. Both periods fell under the exact same rainfall category, proving her high spatial memory and predictable response to specific weather thresholds.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	
+	
+	
+	\begin{frame}
+		\begin{block}{2. Gothami}
+			\begin{itemize}[label=\textbullet]
+				\item \textbf{Thermal Micro-Refugia:} Gothami strictly adheres to the immediate boundary of the reservoir. Her core range centers during September 2024 and September 2025 --- both categorized by peak high temperatures --- show her shifting significantly closer to the reservoir boundary, likely utilizing the water body and its immediate perimeter to cool down during the hottest months of the year.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	
+	
+	
+	\section{GPS Movement Patterns by Time of Day \& Climate}
+	\begin{frame}{GPS Movement Patterns by Time of Day \& Climate}
+		\Large
+		\textbf{What this tab is about:}
+		\vspace{4pt}
+		
+		This tab answers the question: do elephants at Kaudulla National Park move
+		differently depending on the time of day, how hot it is, or how much it is
+		raining? It takes GPS collar data from 14 elephants and pairs every location
+		fix with NASA climate data to colour-code where each elephant was and when,
+		according to climate variability.
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Map 1 --- Day vs Night}
+		In Map 1, every single GPS fix from the selected elephants is plotted as a dot
+		
+		
+		\begin{itemize}
+			\item Red dot = the GPS fix was recorded between 06:00--18:00 (daytime)
+			\item Blue dot = the GPS fix was recorded between 18:00--06:00 (night-time)
+		\end{itemize}
+		
+		\vspace{6pt}
+		\textbf{What to point out:}
+		\begin{itemize}
+			\item Day and night GPS points overlap considerably, indicating stable
+			home ranges rather than different day/night territories.
+			\item Only a few elephants show noticeable directional movement:
+			\begin{itemize}
+				\item Rahu moves slightly northward at night.
+				\item Tara Devi shows a unique westward movement at night.
+			\end{itemize}
+			\item Most others (e.g., Gothami, Recollared female, Female\_1) remain in
+			the same core area throughout the day.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+	\begin{frame}{Map 2 --- Temperature}
+		In Map 2, the same GPS fixes are coloured by the climate season rather than
+		the time of day.
+		
+		\vspace{4pt}
+		\textbf{What to point out:}
+		\begin{itemize}
+			\item Most elephants (Gothami, Dewmi, Mina, Female\_1, Talatha) show a northward shift during the cool season.
+			\item Recollared female has the best hot/cool balance data (67\%, 33\%) of any
+			well-tracked elephant.
+			She moves slightly southward during cool periods, the reverse of most other elephants. Possibly because
+			she is already in the northern part of the park and does not need to shift far.
+			\item \textbf{Caution:} Since the dataset was imbalanced across seasons, with most elephants tracked only during either the hot or the cool season, seasonal comparisons are limited. Although a few individuals appear to shift their locations between hot and cool periods, the evidence is insufficient to draw strong conclusions about seasonal movement.
+			
+		\end{itemize}
+		\vspace{6pt}
+		
+	\end{frame}
+	
+	
+	
+	
+	
+	\begin{frame}{Map 2 --- Rainfall}
+		rainfall periods are coloured based on
+		heavy and low rainfall.
+		This lets you see whether elephants concentrate in different parts of the
+		park depending on how much it is raining.
+		
+		\vspace{4pt}
+		
+		\vspace{6pt}
+		\textbf{Main insight:}
+		\begin{itemize}
+			\item Most elephants occupied similar areas during both heavy and low
+			rainfall periods.
+			\item Some individuals were only tracked in one rainfall condition, so
+			comparisons were limited.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{The Time Series Chart}
+		\Large
+		These charts simply show when each hot, cool, heavy-rain and low-rain period
+		occurred. This was used to interpret the movement maps by linking elephant
+		locations with seasonal climate conditions.
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	\section{Vegetation \& GPS Tracking}
+	
+	\begin{frame}{Vegetation \& GPS Tracking}
+		\Large
+		\textbf{What this tab is about:}
+		\vspace{4pt}
+		
+		This dashboard answers a different question: does the vegetation state of
+		Kaudulla National Park influence where elephants spend their time? It
+		combines NDVI satellite vegetation data (2018--2026) with GPS collar tracking
+		(2024--2026) to show elephant hotspots, how much they move each month, and
+		how all of this relates to the health and density of the park's vegetation.
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Panel 1 (Left) --- Vegetation Coverage Chart}
+		\textbf{What it shows:} a bar chart of NDVI (Normalized Difference Vegetation
+		Index) data for Kaudulla National Park, showing how much of the park falls
+		into each vegetation category in 2024, 2025 and 2026.
+		
+		\vspace{4pt}
+		
+		
+		\vspace{6pt}
+		\textbf{What to point out:}
+		\begin{itemize}
+			\item Vegetation changed slightly across the three years.
+			\item 2026 had the highest canopy cover, but also the highest proportion of
+			non-vegetated land. This is the key vegetation signal that connects
+			to elephant behavior, but 2026 data is only available for recollared
+			female.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Panel 2 (Right) --- All GPS Tracking Points Map}
+		\textbf{What it shows:} every GPS fix from all 14 elephants plotted on the
+		Kaudulla map, with each dot coloured by the year it was recorded.
+		
+		
+		
+		\vspace{6pt}
+		\textbf{What to point out:}
+		\begin{itemize}
+			\item GPS locations reveal that elephants use different parts of Kaudulla.
+			\item Some remain in the central region, while others occupy northern areas.
+			\item Several elephants consistently reused the same locations across
+			years, showing site fidelity. Examples:
+			\begin{itemize}
+				\item Dona and Rahu $\rightarrow$ northern users.
+				\item Gothami and Female\_1 $\rightarrow$ central users.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Panel 3 (Left) --- Monthly Home Range vs Vegetation}
+		\textbf{What it shows:} a line chart where each line represents one elephant
+		in one year, plotting how far that elephant spread spatially during each
+		month. The unit on the left axis is home range radius in kilometres. A
+		higher value means the elephant was roaming widely, possibly searching for
+		food or water; a lower value means it was staying in a tight area, possibly
+		because it had found a reliable resource.
+		
+		\vspace{6pt}
+		\textbf{What to point out:}
+		The Recollared Female had the most complete monthly data and showed the widest monthly home range (4.27 km) in April 2025, at the beginning of the hot season. This may indicate increased ranging in search of food and water as conditions became drier. For the remaining elephants, monthly data were concentrated mainly between June and December. Within this period, several elephants exhibited larger home ranges around October–November.
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Panel 4 (Right) --- Hotspot Trajectory \& Per-Elephant Dots}
+		\textbf{Layer 1: Triangles ($\blacktriangle$)}
+		
+		Three coloured triangles mark the single most-visited location across all
+		elephants combined for each year.
+		\begin{itemize}
+			\item Orange triangle = the busiest spot in 2024 which is a central-southern
+			zone within the park near the tank edge
+			\begin{itemize}
+				\item 21 visits, shared by Gothami, Talatha and recollared female.
+			\end{itemize}
+			\item Blue triangle = the busiest spot in 2025
+			\begin{itemize}
+				\item 22 visits, shared by Dewmi,
+				Gothami, Talatha, Female\_1 and recollared female.
+			\end{itemize}
+			\item Green triangle = the busiest spot in 2026
+			\begin{itemize}
+				\item 12 visits, only recollared female.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Panel 4 (continued) --- Per-Elephant Dots}
+		\textbf{Layer 2: Dots with arrows}
+		
+		Each selected elephant gets a uniquely coloured dot marking their own
+		personal most-visited location per year. If an elephant has data in multiple
+		years, their dots are connected by a line with a chevron arrow showing the
+		direction of movement from one year to the next: 2024 $\rightarrow$ 2025
+		$\rightarrow$ 2026.
+		
+		\vspace{6pt}
+		\textbf{What to look for:} do the arrows point in consistent directions
+		across multiple elephants? If yes, there may be a seasonal or
+		vegetation-driven pull toward a particular part of the park. But no such pattern
+		was found.
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Panel 5 (Bottom) --- GPS Fix Counts per Elephant per Year}
+		\Large
+		\textbf{What it shows:} a grouped bar chart showing how many GPS fixes were
+		recorded for each of the 14 elephants in each year. Bars are coloured by
+		year; elephants are listed along the bottom axis.
+	\end{frame}
+	
+	
+	
+	
+	\section{Overall Tracking Data \& Cluster-Level Trends}
+	\begin{frame}{Overall Tracking Data \& Cluster-Level Trends}
+		\large
+		\begin{itemize}[label=\textbullet]
+			\item \textbf{Absence of Cluster-Wide Patterns:} When the tracking data is aggregated and analyzed for the elephants as a collective cluster, the data does not show any statistically significant movement patterns. Individual-specific behavioral strategies cancel each other out in the macro-analysis.
+			\vspace{0.3cm}
+			
+			\item \textbf{No Climate-Spatial Correlation:} Statistical analysis reveals no meaningful correlation between local climate variables (temperature and rainfall intensity) and spatial movement coordinates (longitude and latitude) when treated at the cluster level.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	\begin{frame}
+		\centering
+		
+		\vfill
+		
+		{\Huge\bfseries Anomaly Detection Methods}
+		
+		\vspace{0.8cm}
+		
+		{\Large Four ways of asking: is something wrong with this elephant?}
+		
+		\vfill
+	\end{frame}
+	
+	
+	
+	\section{Overview}
+	\begin{frame}{Overview}
+		\small
+		Four independent methods run over the \hi{same cleaned GPS tracking data}
+		so any elephant or date-range signal can be cross-checked across methods.
+		\vspace{0.6em}
+		\begin{itemize}
+			\setlength{\itemsep}{5pt}
+			\item \textbf{Movement rate} -- Wall et al. (2014): flags days an elephant's
+			total daily movement drops to or below its own historical 1st percentile.
+			\item \textbf{Immobility monitor} -- Wall et al. (2014): flags a sustained
+			stay inside a \textasciitilde13\,m radius for $\geq 5$ hours, the published
+			real-time rule for catching death or serious injury.
+			\item \textbf{Revisit hotspots} -- Bracis et al. (2018): how often an elephant
+			returns to the same place, separating core sites from one-off, exploratory ones.
+			\item \textbf{Proximity anomalies} -- Wall et al. (2014): pairwise distance
+			between elephants, flagging unusual togetherness, separations, and shifts in
+			a pair's normal pattern.
+		\end{itemize}
+	\end{frame}
+	
+	
+	\section{Movement rate}
+	
+	\begin{frame}{Movement rate: what the method does}
+		\small
+		\begin{itemize}
+			\item \textbf{The idea.} For each elephant, sum how far it travels each day,
+			and flag any day it covers far less ground than its own normal -- down to
+			its \hi{lowest 1\% of days} on record.
+			\item \textbf{Why it matters.} A sudden drop in daily movement is
+			\hi{one of the earliest signs that something is wrong}: injury, snaring,
+			illness, or weakness while the animal is still moving and can still be
+			reached in time. No extra fieldwork: it reads collar data that already exists.
+			\item \textbf{Judged against itself.} Every elephant is compared to
+			\hi{its own history, never a park average}, so a naturally low-ranging
+			animal is not falsely flagged, and a decline in an active one is caught early.
+			\item \textbf{Reliable only where data is dense.} A day's distance is
+			trustworthy only when most hourly fixes are present ($\geq 20$/day). Where a
+			collar is sparse the method stays silent, and that silence means
+			\hi{not enough data}, not \emph{elephant is fine}.
+		\end{itemize}
+		\vfill
+		{\footnotesize Method: Wall et al. (2014), \textit{Ecological Applications} ---
+			per-elephant daily-distance percentile baseline.}
+	\end{frame}
+	
+	
+	
+	
+	\begin{frame}{Movement rate: worked example --- Gothami}
+		\begin{columns}[T]
+			\begin{column}{0.60\textwidth}
+				\small
+				\setlength{\itemsep}{6pt}
+				\begin{itemize}
+					\item Over \hi{208} well-covered days, only \hi{3 were flagged} all
+					\hi{within one week}. A short cluster is a far stronger prompt than any
+					isolated day.
+					\item On those days she moved \hi{0.77--1.29 km}, against a typical
+					\hi{5.03 km/day}.
+					\item She resumed normal movement immediately after, so this reads as
+					transient (rest or foraging), not an emergency, but exactly the kind of
+					event \hi{worth a field check}.
+					\item \textbf{Action.} A flagged day sends a \hi{located alert to the field
+						team} and corroborates the immobility monitor, together they catch
+					more than either alone.
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.38\textwidth}
+				\centering
+				{\footnotesize\textbf{Flagged days}}\\[0.4em]
+				{\footnotesize
+					\begin{tabular}{lrr}
+						\toprule
+						Date & Dist.\ (km) & Fixes \\
+						\midrule
+						2024-10-21 & 0.77 & 22 \\
+						2024-10-22 & 1.29 & 20 \\
+						2024-10-25 & 1.01 & 24 \\
+						\bottomrule
+				\end{tabular}}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	% =============================================================================
+	% 2. IMMOBILITY MONITOR
+	% =============================================================================
+	\section{Immobility monitor}
+	
+	\begin{frame}{Immobility monitor: key insights}
+		\small
+		\setlength{\itemsep}{6pt}
+		\begin{itemize}
+			\item The rule flags an elephant that stays within a \hi{13\,m circle for
+				5+ hours} --- a pattern that means one of three things: dead, injured, or
+			in deep rest.
+			\item Across \hi{86,747 fixes} and 2 years of tracking, only \hi{1 anomaly}
+			was flagged: Gothami, 6 Aug 2025, 01:00--06:00. She kept transmitting
+			normally for months after, so this was \hi{deep rest}, not death or injury.
+			\item No other elephant was flagged --- but that is not fully reassuring. Most
+			collars are missing \hi{55--98\% of their GPS fixes}, so a ``no flag'' result
+			mainly reflects missing data, not confirmed safety.
+			\item Only \hi{Gothami and the recollared female} have enough coverage to
+			trust their result either way.
+		\end{itemize}
+		\vfill
+		{\footnotesize Method: Wall et al. (2014) --- published real-time immobility
+			rule (13\,m / 5\,h), applied strictly.}
+	\end{frame}
+	
+	
+	
+	\begin{frame}{Immobility monitor: recommendations}
+		\small
+		\setlength{\itemsep}{8pt}
+		\begin{enumerate}
+			\item \textbf{Treat ``no flag'' as inconclusive, not clean.} For low-density
+			collars, silence reflects data sparsity, not necessarily wellbeing.
+			\item \textbf{Keep the strict, published settings.} 13\,m / 5\,h is
+			deliberately conservative - loosening it to ``catch more'' starts
+			producing false alarms.
+			\item \textbf{Lean on the best-covered collars.} Gothami and the recollared
+			female give the most reliable signal today - expand that coverage to the
+			rest of the herd.
+			\item \textbf{Elephant Rescue Alert System.} A detected anomaly sends a
+			\hi{located alert} to the wildlife team, who can reach the elephant, check
+			its condition, and help - faster action, better survival odds. 
+		\end{enumerate}
+	\end{frame}
+	
+	
+	
+	
+	\section{Revisit hotspots}
+	
+	\begin{frame}{Revisit hotspots: key insights}
+		\small
+		\setlength{\itemsep}{6pt}
+		\begin{itemize}
+			\item \hi{Frequently revisited} locations mark important habitat --- where
+			elephants return for food, water, or shelter - and are strong candidates
+			for protection.
+			\item Locations visited \hi{only once} suggest exploratory movement or
+			occasional travel outside an elephant's regular range.
+			\item Elephants differ: some show \hi{strong site fidelity}, others range
+			far more widely.
+			\item Revisit maps help identify \hi{priority areas} for habitat conservation
+			and wildlife management.
+			\item One-time visits near \hi{park boundaries} warrant monitoring for
+			potential human-elephant interactions.
+		\end{itemize}
+		\vfill
+		{\footnotesize Method: Bracis et al. (2018) --- revisit / site-fidelity analysis
+			(150\,m radius, 24\,h gap).}
+	\end{frame}
+	
+
+
+
+
+
+	\section{Proximity anomalies}
+	
+	\begin{frame}{Proximity anomalies: what it shows}
+		\small
+		\setlength{\itemsep}{7pt}
+		\begin{itemize}
+			\item \textbf{Data coverage.} How much tracking data each elephant has, at a
+			glance --- so results are read against how much data backs them.
+			\item \textbf{Relationship heatmap.} Which pairs spend time close together,
+			and \hi{how often}.
+			\item \textbf{Togetherness over time.} Pick any two elephants and see when they
+			were together, when they \hi{drifted apart}, and for how long.
+		\end{itemize}
+		\vfill
+		{\footnotesize Method: Wall et al. (2014) proximity rule. The
+			\hi{500\,m} ``together'' threshold is chosen from the actual spread of distances
+			observed between our own collared elephants.}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Proximity anomalies: key insights \& recommendations}
+		\small
+		\setlength{\itemsep}{6pt}
+		\begin{itemize}
+			\item \hi{Gothami and female\_1} stay within 500\,m of each other for
+			considerable hours --- a real, sustained pairing.
+			\item \hi{Talatha and the recollared female} were tracked together for a long
+			stretch yet \hi{never once within 500\,m} --- a genuine ``no relationship,''
+			not a data gap. The dashboard can confirm, or rule out, a relationship across
+			\hi{any pair} in the dataset.
+			\item \textbf{Recommendation.} A \hi{weekly flag} is a useful trigger to check
+			a pair in the field: a sharp shift from their own normal pattern may signal
+			sickness, injury, or a group splitting up.
+			\item \textbf{Recommendation.} In drought, several elephants appearing close
+			more often than usual may reflect them \hi{converging on the same limited
+				water source} --- worth cross-checking against known water points.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+\end{document}
